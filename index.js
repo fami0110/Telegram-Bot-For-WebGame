@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 // console.log({apiToken, gameShortName, gameUrl, port});
 
 const server = express();
-const bot = new TelegramBot(apiToken, { polling: true });
+const bot = new TelegramBot(apiToken, { webHook: true });
 const queries = {};
 
 // Serve static files
