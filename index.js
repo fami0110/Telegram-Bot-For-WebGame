@@ -14,6 +14,7 @@ const queries = {};
 
 // Serve static files
 server.use(express.static(path.join(__dirname, gameShortName)));
+server.use(express.json());
 
 // Start command - display description and options
 bot.onText(/\/start/, (msg) => {
@@ -74,6 +75,14 @@ bot.on("inline_query", function (iq) {
         id: "0",
         game_short_name: gameShortName
     }]);
+});
+
+server.get("/", (req, res) => {
+    res.status(200);
+    res.send({
+        status: 200,
+        message: 'success',
+    });
 });
 
 // High score endpoint
