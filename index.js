@@ -7,7 +7,7 @@ const gameShortName = process.env.GAME_SHORT_NAME;
 const gameUrl = process.env.GAME_URL;
 const port = process.env.PORT || 5000;
 const webhookUrl = `${process.env.BASE_URL}/bot`;
-console.log({apiToken, gameShortName, gameUrl, port, webhookUrl});
+// console.log({apiToken, gameShortName, gameUrl, port, webhookUrl});
 
 // Initialize bot and express
 const server = express();
@@ -16,9 +16,9 @@ const queries = {};
 
 // Init webhook
 bot.setWebHook(webhookUrl);
-console.log(
-    `Please setup your BOT Webhook first: curl -X POST https://api.telegram.org/bot${apiToken}/setWebhook -d "url=${webhookUrl}"`
-);
+// console.log(
+//     `Please setup your BOT Webhook first: curl -X POST https://api.telegram.org/bot${apiToken}/setWebhook -d "url=${webhookUrl}"`
+// );
 
 // Middleware
 server.use(express.static(path.join(__dirname, gameShortName)));
