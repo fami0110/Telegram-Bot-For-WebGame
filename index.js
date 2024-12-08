@@ -19,7 +19,9 @@ server.use(express.static(path.join(__dirname, botName)));
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
 
-    bot.sendMessage(chatId, `🎮 Welcome to ${botName} Bot!\n\nHere are the commands you can use:\n
+    bot.sendMessage(chatId, 
+    `🎮 Welcome to ${botName} Bot!\n
+    \nHere are the commands you can use:\n
     - /game: Play the game.
     - /help: Get help.
     - /credits: View credits.\n
@@ -43,7 +45,9 @@ bot.onText(/\/help/, (msg) => {
 
 // Credits button or command
 bot.onText(/\/credits/, (msg) => {
-    bot.sendMessage(msg.chat.id, `👾 *Credits:*\n\nGame developed by:\n- Your Name\n- Your Team\n\nContact us at example@example.com`, {
+    bot.sendMessage(msg.chat.id, 
+        `👾 *Credits:*\n
+        \nGame developed by:\n- ZhayaGT (on github)`, {
         parse_mode: "Markdown"
     });
 });
@@ -73,23 +77,23 @@ bot.on("inline_query", function (iq) {
 });
 
 // High score endpoint
-server.get("/highscore/:score", function (req, res, next) {
-    if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
-    let query = queries[req.query.id];
-    let options;
-    if (query.message) {
-        options = {
-            chat_id: query.message.chat.id,
-            message_id: query.message.message_id
-        };
-    } else {
-        options = {
-            inline_message_id: query.inline_message_id
-        };
-    }
-    bot.setGameScore(query.from.id, parseInt(req.params.score), options,
-        function (err, result) {});
-});
+// server.get("/highscore/:score", function (req, res, next) {
+//     if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
+//     let query = queries[req.query.id];
+//     let options;
+//     if (query.message) {
+//         options = {
+//             chat_id: query.message.chat.id,
+//             message_id: query.message.message_id
+//         };
+//     } else {
+//         options = {
+//             inline_message_id: query.inline_message_id
+//         };
+//     }
+//     bot.setGameScore(query.from.id, parseInt(req.params.score), options,
+//         function (err, result) {});
+// });
 
 // Start the server
 server.listen(port, () => {
