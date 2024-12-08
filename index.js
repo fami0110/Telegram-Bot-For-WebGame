@@ -20,8 +20,7 @@ console.log(
     `Please setup your BOT Webhook first: curl -X POST https://api.telegram.org/bot${apiToken}/setWebhook -d "url=${webhookUrl}"`
 );
 
-// Middleware 
-server.use(bodyParser.json());
+// Middleware
 server.use(express.static(path.join(__dirname, gameShortName)));
 server.use(express.json());
 
