@@ -3,24 +3,24 @@ const TelegramBot = require("node-telegram-bot-api");
 const path = require("path");
 
 const apiToken = process.env.API_TOKEN;
-const botName = process.env.BOT_NAME;
+const gameShortName = process.env.GAME_SHORT_NAME;
 const gameUrl = process.env.GAME_URL;
 const port = process.env.PORT || 5000;
-// console.log({apiToken, botName, gameUrl, port});
+// console.log({apiToken, gameShortName, gameUrl, port});
 
 const server = express();
 const bot = new TelegramBot(apiToken, { polling: true });
 const queries = {};
 
 // Serve static files
-server.use(express.static(path.join(__dirname, botName)));
+server.use(express.static(path.join(__dirname, gameShortName)));
 
 // Start command - display description and options
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
 
     bot.sendMessage(chatId, 
-    `🎮 Welcome to ${botName} Bot!\n
+    `🎮 Welcome to ${gameShortName} Bot!\n
     \nHere are the commands you can use:\n
     - /game: Play the game.
     - /help: Get help.
@@ -54,12 +54,12 @@ bot.onText(/\/credits/, (msg) => {
 
 // Play game command or button
 bot.onText(/\/game|🎮 Play Game/, (msg) => {
-    bot.sendGame(msg.chat.id, botName);
+    bot.sendGame(msg.chat.id, gameShortName);
 });
 
 // Callback for game URL
 bot.on("callback_query", function (query) {
-    if (query.game_short_name !== botName) {
+    if (query.game_short_name !== gameShortName) {
         bot.answerCallbackQuery(query.id, `Sorry, '${query.game_short_name}' is not available.`);
     } else {
         queries[query.id] = query;
@@ -72,7 +72,7 @@ bot.on("inline_query", function (iq) {
     bot.answerInlineQuery(iq.id, [{
         type: "game",
         id: "0",
-        game_short_name: botName
+        game_short_name: gameShortName
     }]);
 });
 
