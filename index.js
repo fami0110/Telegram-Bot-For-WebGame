@@ -6,38 +6,15 @@ const apiToken = process.env.API_TOKEN;
 const gameShortName = process.env.GAME_SHORT_NAME;
 const gameUrl = process.env.GAME_URL;
 const port = process.env.PORT || 5000;
-const webhookUrl = `${process.env.BASE_URL}/bot`;
-// console.log({apiToken, gameShortName, gameUrl, port, webhookUrl});
+// console.log({apiToken, gameShortName, gameUrl, port});
 
-// Initialize bot and express
 const server = express();
-const bot = new TelegramBot(apiToken, { webHook: true });
+const bot = new TelegramBot(apiToken, { polling: true });
 const queries = {};
 
-// Init webhook
-bot.setWebHook(webhookUrl);
-// console.log(
-//     `Please setup your BOT Webhook first: curl -X POST https://api.telegram.org/bot${apiToken}/setWebhook -d "url=${webhookUrl}"`
-// );
-
-// Middleware
+// Serve static files
 server.use(express.static(path.join(__dirname, gameShortName)));
 server.use(express.json());
-
-// Default route
-server.get("/", (req, res) => {
-    res.status(200);
-    res.send({
-        status: 200,
-        message: 'success',
-    });
-});
-
-// Bot route
-server.post('/bot', (req, res) => {
-    bot.processUpdate(req.body);
-    res.sendStatus(200);
-});
 
 // Start command - display description and options
 bot.onText(/\/start/, (msg) => {
@@ -98,6 +75,14 @@ bot.on("inline_query", function (iq) {
         id: "0",
         game_short_name: gameShortName
     }]);
+});
+
+server.get("/", (req, res) => {
+    res.status(200);
+    res.send({
+        status: 200,
+        message: 'success',
+    });
 });
 
 // High score endpoint
