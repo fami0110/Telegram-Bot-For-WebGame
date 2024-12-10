@@ -48,7 +48,7 @@ bot.onText(/\/help/, (msg) => {
 bot.onText(/\/credits/, (msg) => {
     bot.sendMessage(msg.chat.id, 
         `👾 *Credits:*\n
-        \nGame developed by:\n- ZhayaGT (on github)`, {
+        \nGame developed by:\n- Joe (on github)`, {
         parse_mode: "Markdown"
     });
 });
