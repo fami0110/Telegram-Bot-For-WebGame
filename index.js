@@ -21,12 +21,12 @@ bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
 
     bot.sendMessage(chatId, 
-    `🎮 Welcome to ${gameShortName} Bot!\n
-    \nHere are the commands you can use:\n
-    - /game: Play the game.
-    - /help: Get help.
-    - /credits: View credits.\n
-    \nTap the buttons below to start!`, {
+`🎮 Welcome to *${gameShortName.replace('_', ' ')}* Bot!\n
+Here are the commands you can use:
+- /game : Play the game.
+- /help : Get help.
+- /credits : View credits.\n
+Tap the buttons below to start!`, {
         parse_mode: "Markdown",
         reply_markup: {
             keyboard: [
@@ -47,8 +47,8 @@ bot.onText(/\/help/, (msg) => {
 // Credits button or command
 bot.onText(/\/credits/, (msg) => {
     bot.sendMessage(msg.chat.id, 
-        `👾 *Credits:*\n
-        \nGame developed by:\n- Joe (on github)`, {
+`👾 *Credits:*\n
+Game developed by:\n- ZhayaGT (on github)`, {
         parse_mode: "Markdown"
     });
 });
