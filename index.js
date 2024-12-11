@@ -45,7 +45,7 @@ bot.onText(/\/help/, (msg) => {
 });
 
 // Credits button or command
-bot.onText(/\/credits/, (msg) => {
+bot.onText(/\/credits!📜 Credits/, (msg) => {
     bot.sendMessage(msg.chat.id, 
 `👾 *Credits:*\n
 Game developed by:\n- ZhayaGT (on github)`, {
